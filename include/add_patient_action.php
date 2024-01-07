@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // There is no image to be uploaded so save the record
     else if ($exist == false) {
         // $sql = "UPDATE Profile SET name='$name',email='$email',program='$program',mentorName='$mentorName',motto='$motto' WHERE matricNo='$matricNo'";
-        $sql = "INSERT INTO patient(ic,email,mobile,gender,address,firstName,lastName) VALUES ('$ic','$email',$phone,'$gender','$address','$firstName','$lastName')";
+        $sql = "INSERT INTO patient(ic,email,mobile,gender,address,firstName,lastName) VALUES ('$ic','$email','$phone','$gender','$address','$firstName','$lastName')";
 
         $status = update_DbTable($conn, $sql);
 
