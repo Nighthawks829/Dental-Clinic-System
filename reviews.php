@@ -71,7 +71,6 @@
 
             echo '</div>
             </div>';
-
       }
   } else {
       echo "0 results";

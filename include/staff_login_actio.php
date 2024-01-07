@@ -11,7 +11,10 @@ ini_set('display_errors', 1);
 $userEmail = $_POST["email"];
 $userPwd = $_POST["password"];
 
-$sql = "SELECT * FROM dentist WHERE email='$userEmail' UNION SELECT * FROM nurse WHERE email='$userEmail' LIMIT 1";
+$sql = "SELECT 'dentist' AS position, id, email,firstName,lastName, password FROM dentist WHERE email='$userEmail' 
+        UNION 
+        SELECT 'nurse' AS position, id, email,firstName,lastName ,password FROM nurse WHERE email='$userEmail' LIMIT 1";
+
 $result = mysqli_query($conn, $sql);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_num_rows($result) == 1) {
@@ -24,6 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // echo '<script type="text/javascript"> alert("Login successful!"); </script>';
             $_SESSION['UID'] = $row["id"];
             $_SESSION['email'] = $row['email'];
+            $_SESSION['position'] = $row['position'];
+            $_SESSION['firstName'] = $row['firstName'];
+            $_SESSION['lastName'] = $row['lastName'];
             // set loggied in time
             $_SESSION["loggedin_time"] = time();
             header("location: ../staff.php");
