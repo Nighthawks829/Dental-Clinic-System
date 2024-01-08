@@ -18,12 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $update_date = new DateTime("now", new DateTimeZone("Asia/Kuala_Lumpur"));
     $update_date_formatted = $update_date->format('Y-m-d');
 
-    // $sql = "UPDATE schedule SET room_number='$room_number',date='$date',time_from=$time_from,time_to='$time_to',update_date='$update_date' WHERE id='$id'";
-    $sql = "UPDATE schedule SET room_number='$room_number',nurseID='$nurseID',dentistID='$dentistID' ,date='$date',time_from='$time_from',time_to='$time_to',update_date='$update_date_formatted' WHERE id='$id'";
+    $sqlAppointment = "UPDATE appointment SET 'appointment_date='$date',appointment_time='$time_from' WHERE appointment_id='$id'";
+    $sqlSchedule = "UPDATE schedule SET room_number='$room_number',nurseID='$nurseID',dentistID='$dentistID' ,date='$date',time_from='$time_from',time_to='$time_to',update_date='$update_date_formatted' WHERE id='$id'";
 
-    $status = update_DbTable($conn, $sql);
+    $statusAppoitment = update_DbTable($conn, $sqlAppointment);
+    $statusSchedule = update_DbTable($conn, $sqlSchedule);
 
-    if ($status) {
+    if ($statusAppoitment && $statusSchedule) {
         $message = "Form data and file updated successfully";
         include("./edit_schedule_message.php");
     } else {
