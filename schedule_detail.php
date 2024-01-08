@@ -35,9 +35,11 @@ include("include/config.php");
 
     if (isset($_SESSION['UID']) && !empty($_SESSION['UID'])) {
         $sql = "SELECT s.id, s.dentistID, s.nurseID, s.date, s.time_from, s.time_to, s.room_number, s.update_date,
-    CONCAT(n.firstName, ' ', n.lastName) AS nurseName
+    CONCAT(n.firstName, ' ', n.lastName) AS nurseName,
+    CONCAT(d.firstName, ' ',d.lastName) AS dentistName
     FROM schedule s
     JOIN nurse n ON s.nurseID = n.id
+    JOIN dentist d ON s.dentistID=d.id
     WHERE s.id=" . $_GET['id'];
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) == 1) {
@@ -60,6 +62,10 @@ include("include/config.php");
             <div class="col-md-6">
                 Room Number: <?php echo $row['room_number'] ?>
                 </select>
+            </div>
+
+            <div class="col-md-6">
+                Dentist : <?php echo $row['dentistName'] ?>
             </div>
 
             <div class="col-md-6">
@@ -88,7 +94,10 @@ include("include/config.php");
         </div>
 
         <div class="col-12 text-center">
-            <a href="./admin.php" class="btn btn-danger">Back</a>
+            <!-- <a href="./admin.php" class="btn btn-danger">Back</a> -->
+            <?php
+            echo '<a href="staff_detail.php?id=' . $_GET['staffid'] . '&position=' . $_GET['position'] . '" class="btn btn-danger">Back</a>';
+            ?>
         </div>
     </div>
 </body>
