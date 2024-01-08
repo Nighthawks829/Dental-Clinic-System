@@ -96,5 +96,5 @@ appointment_time TIME,
 appointment_reason VARCHAR(255), 
 appointment_status VARCHAR(20),
 FOREIGN KEY (user_ic) REFERENCES user(ic),
-FOREIGN KEY (dentist_id) REFERENCES dentist(id)
+FOREIGN KEY (dentist_id) REFERENCES dentist(id)
 );
