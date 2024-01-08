@@ -21,7 +21,7 @@
                 echo "<h1 style=\"margin-bottom:20px;\" >$message</h1>";
                 ?>
 
-                <a href="location:../index.php" class="btn btn-primary">Go Back</a>
+                <a href="../index.php" class="btn btn-primary">Go Back</a>
             </div>
         </div>
     </section>

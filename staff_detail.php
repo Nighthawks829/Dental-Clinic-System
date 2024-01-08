@@ -134,11 +134,27 @@ include("include/config.php");
 
         if (isset($_SESSION['UID']) && !empty($_SESSION['UID'])) {
             if ($_GET['position'] == 'dentist') {
-                $sql = "SELECT s.id, s.dentistID, s.nurseID, s.date, s.time_from, s.time_to, s.room_number, s.update_date,
-                CONCAT(n.firstName, ' ', n.lastName) AS nurseName
-            FROM schedule s
-            JOIN nurse n ON s.nurseID = n.id
-            WHERE s.dentistID=" . $_GET['id'];
+                //     $sql = "SELECT s.id, s.dentistID, s.nurseID, s.date, s.time_from, s.time_to, s.room_number, s.update_date,
+                //     CONCAT(n.firstName, ' ', n.lastName) AS nurseName
+                // FROM schedule s
+                // JOIN nurse n ON s.nurseID = n.id
+                // WHERE s.dentistID=" . $_GET['id'];
+                $sql = "SELECT 
+            s.id, 
+            s.dentistID, 
+            s.nurseID, 
+            s.date, 
+            s.time_from, 
+            s.time_to, 
+            s.room_number, 
+            s.update_date, 
+            CONCAT(COALESCE(n.firstName, ''), ' ', COALESCE(n.lastName, '')) AS nurseName 
+        FROM 
+            schedule s 
+        LEFT JOIN 
+            nurse n ON s.nurseID = n.id 
+        WHERE 
+            s.dentistID =" . $_GET['id'];
             } else if ($_GET['position'] == 'nurse') {
                 $sql = "SELECT s.id, s.dentistID, s.nurseID, s.date, s.time_from, s.time_to, s.room_number, s.update_date,
                 CONCAT(d.firstName, ' ', d.lastName) AS dentistName
@@ -183,7 +199,7 @@ include("include/config.php");
                                 echo '<td class="text-center">';
                                 echo '<a href="edit_schedule.php?id=' . $row['id'] . '&staffid=' . $_GET['id'] . '&position=' . $_GET['position'] . '">Edit</a>';
                                 echo '&nbsp;&nbsp;';
-                                echo '<a href="schedule_detail.php?id=' . $row['id'] . '&staffid=' . $_GET['id'] . '&position=' . $_GET['position'] .'">View</a>';
+                                echo '<a href="schedule_detail.php?id=' . $row['id'] . '&staffid=' . $_GET['id'] . '&position=' . $_GET['position'] . '">View</a>';
                                 echo '&nbsp;&nbsp;';
                                 echo '<a href="./include/delete_schedule_action.php?id=' . $row['id'] . '" class="text-danger" onClick="return confirm(\'Delete?\');">Delete</a>';
                                 echo '</td>';
@@ -202,9 +218,9 @@ include("include/config.php");
                                 echo "<td> " . $row['time_from'] . "</td>";
 
                                 echo '<td class="text-center">';
-                                echo '<a href="edit_schedule.php?id=' . $row['id'] . '&staffid=' . $_GET['id'] . '&position=' . $_GET['position'] .'">Edit</a>';
+                                echo '<a href="edit_schedule.php?id=' . $row['id'] . '&staffid=' . $_GET['id'] . '&position=' . $_GET['position'] . '">Edit</a>';
                                 echo '&nbsp;&nbsp;';
-                                echo '<a href="schedule_detail.php?id=' . $row['id'] . '&staffid=' . $_GET['id'] . '&position=' . $_GET['position'] .'">View</a>';
+                                echo '<a href="schedule_detail.php?id=' . $row['id'] . '&staffid=' . $_GET['id'] . '&position=' . $_GET['position'] . '">View</a>';
                                 echo '&nbsp;&nbsp;';
                                 echo '<a href="./include/delete_schedule_action.php?id=' . $row['id'] . '" class="text-danger" onClick="return confirm(\'Delete?\');">Delete</a>';
                                 echo '</td>';

@@ -34,13 +34,32 @@ include("include/config.php");
 
 
     if (isset($_SESSION['UID']) && !empty($_SESSION['UID'])) {
-        $sql = "SELECT s.id, s.dentistID, s.nurseID, s.date, s.time_from, s.time_to, s.room_number, s.update_date,
-    CONCAT(n.firstName, ' ', n.lastName) AS nurseName,
-    CONCAT(d.firstName, ' ',d.lastName) AS dentistName
-    FROM schedule s
-    JOIN nurse n ON s.nurseID = n.id
-    JOIN dentist d ON s.dentistID=d.id
-    WHERE s.id=" . $_GET['id'];
+        //     $sql = "SELECT s.id, s.dentistID, s.nurseID, s.date, s.time_from, s.time_to, s.room_number, s.update_date,
+        // CONCAT(n.firstName, ' ', n.lastName) AS nurseName,
+        // CONCAT(d.firstName, ' ',d.lastName) AS dentistName
+        // FROM schedule s
+        // JOIN nurse n ON s.nurseID = n.id
+        // JOIN dentist d ON s.dentistID=d.id
+        // WHERE s.id=" . $_GET['id'];
+        $sql = "SELECT 
+    s.id, 
+    s.dentistID, 
+    s.nurseID, 
+    s.date, 
+    s.time_from, 
+    s.time_to, 
+    s.room_number, 
+    s.update_date,
+    CONCAT(COALESCE(n.firstName, ''), ' ', COALESCE(n.lastName, '')) AS nurseName,
+    CONCAT(COALESCE(d.firstName, ''), ' ', COALESCE(d.lastName, '')) AS dentistName
+FROM 
+    schedule s
+LEFT JOIN 
+    nurse n ON s.nurseID = n.id
+LEFT JOIN 
+    dentist d ON s.dentistID = d.id
+WHERE 
+    s.id =" . $_GET['id'];
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) == 1) {
             $row = mysqli_fetch_assoc($result);
