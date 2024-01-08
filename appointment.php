@@ -29,7 +29,7 @@ include("include/config.php");
 	<div class="container" style="padding:0 10px;" align="center">
 		<h1 align="center">Book Appointment</h1>
 		
-		<form method="POST" action="appointment_action.php" enctype="multipart/form-data">
+		<form method="POST" action="./include/appointment_action.php" enctype="multipart/form-data">
 		
 			<label for="appointment_patient_name">Patient Name:</label>
 			<input type="text" name="appointment_patient_name" size="20" required>

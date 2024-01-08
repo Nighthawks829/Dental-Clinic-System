@@ -1,6 +1,8 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
-include('include/config.php');
+include('config.php');
 
 //this bloock is called when button submit is clicked
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 		if($conn->query($sqlAppointment) === TRUE) {
 			$message = "Appointment booked successfully!<br>";
-			include("include/appointment_message.php");
+			include("./appointment_message.php");
 			
 			//retrieve the dentist_id associated with the selected dentist
 			$sqlDentist = "SELECT id FROM dentist WHERE id = '$dentist_id'";
@@ -46,7 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 					
 				} else {
 					$message = "Error updating schedule: " . $conn->error;
-					include("include/appointment_message.php");
+					include("./appointment_message.php");
 				}
 			}
 		} else {
