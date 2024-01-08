@@ -129,9 +129,9 @@ include("include/config.php");
         </form>
 
         <div class="col-12 text-center">
-            <!-- <a href="./admin.php" class="btn btn-danger">Back</a> -->
+            <a href="./admin.php" class="btn btn-danger">Back</a>
             <?php
-                echo '<a href="staff_detail.php?id=' . $_GET['staffid'] . '&position=' . $_GET['position'] . '" class="btn btn-danger">Back</a>';
+                // echo '<a href="staff_detail.php?id=' . $_GET['staffid'] . '&position=' . $_GET['position'] . '" class="btn btn-danger">Back</a>';
                 ?>
         </div>
     </div>

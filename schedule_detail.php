@@ -86,7 +86,7 @@ include("include/config.php");
             </div>
         </div>
 
-        <div class="col-12 text-center mb-5">
+        <div class="col-12 text-center mb-3">
             <?php
             echo '<a href="edit_schedule.php?id=' . $_GET['id'] . '"class="btn btn-primary mb-3">Edit Schedule</a>';
             ?>
