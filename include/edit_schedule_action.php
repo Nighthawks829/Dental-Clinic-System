@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $update_date = new DateTime("now", new DateTimeZone("Asia/Kuala_Lumpur"));
     $update_date_formatted = $update_date->format('Y-m-d');
 
-    $sqlAppointment = "UPDATE appointment SET 'appointment_date='$date',appointment_time='$time_from' WHERE appointment_id='$id'";
+    $sqlAppointment = "UPDATE appointment SET appointment_date='$date', appointment_time='$time_from' WHERE appointment_id='$id'";
     $sqlSchedule = "UPDATE schedule SET room_number='$room_number',nurseID='$nurseID',dentistID='$dentistID' ,date='$date',time_from='$time_from',time_to='$time_to',update_date='$update_date_formatted' WHERE id='$id'";
 
     $statusAppoitment = update_DbTable($conn, $sqlAppointment);
