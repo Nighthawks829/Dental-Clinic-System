@@ -12,12 +12,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $room_number = $_POST["room"];
     $date = $_POST["date"];
     $nurseID = $_POST['nurseID'];
+    $dentistID = $_POST['dentistID'];
     $time_from = $_POST["timeFrom"];
     $time_to = $_POST["timeTo"];
     // $update_date = new DateTime("now", new DateTimeZone("Asia/Kuala_Lumpur"));
 
     // $sql = "UPDATE schedule SET room_number='$room_number',date='$date',time_from=$time_from,time_to='$time_to',update_date='$update_date' WHERE id='$id'";
-    $sql = "UPDATE schedule SET room_number='$room_number',nurseID='$nurseID', date='$date',time_from='$time_from',time_to='$time_to' WHERE id='$id'";
+    $sql = "UPDATE schedule SET room_number='$room_number',nurseID='$nurseID',dentistID='$dentistID' ,date='$date',time_from='$time_from',time_to='$time_to' WHERE id='$id'";
 
     $status = update_DbTable($conn, $sql);
 

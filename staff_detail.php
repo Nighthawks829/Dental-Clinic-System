@@ -133,11 +133,19 @@ include("include/config.php");
 
 
         if (isset($_SESSION['UID']) && !empty($_SESSION['UID'])) {
-            $sql = "SELECT s.id, s.dentistID, s.nurseID, s.date, s.time_from, s.time_to, s.room_number, s.update_date,
-            CONCAT(n.firstName, ' ', n.lastName) AS nurseName
-        FROM schedule s
-        JOIN nurse n ON s.nurseID = n.id
-        WHERE s.dentistID=" . $_GET['id'];
+            if ($_GET['position'] == 'dentist') {
+                $sql = "SELECT s.id, s.dentistID, s.nurseID, s.date, s.time_from, s.time_to, s.room_number, s.update_date,
+                CONCAT(n.firstName, ' ', n.lastName) AS nurseName
+            FROM schedule s
+            JOIN nurse n ON s.nurseID = n.id
+            WHERE s.dentistID=" . $_GET['id'];
+            } else if($_GET['position']=='nurse') {
+                $sql = "SELECT s.id, s.dentistID, s.nurseID, s.date, s.time_from, s.time_to, s.room_number, s.update_date,
+                CONCAT(d.firstName, ' ', d.lastName) AS dentistName
+            FROM schedule s
+            JOIN dentist d ON s.dentistID = d.id
+            WHERE s.nurseID=" . $_GET['id'];
+            }
             $result = mysqli_query($conn, $sql);
         } else {
             header("location:./admin_staff.php");
@@ -151,6 +159,7 @@ include("include/config.php");
                     <tr>
                         <th scope="col" class="text-center">No</th>
                         <th scope="col" class="text-center">Room Number</th>
+                        <th scope="col" class="text-center">Dentist</th>
                         <th scope="col" class="text-center">Nurse</th>
                         <th scope="col" class="text-center">Date</th>
                         <th scope="col" class="text-center">Time</th>
@@ -161,24 +170,48 @@ include("include/config.php");
                     <?php
                     if (mysqli_num_rows($result) > 0) {
                         $numRow = 1;
-                        while ($row = mysqli_fetch_array($result)) {
-                            echo "<tr>";
-                            echo "<td class=\"text-center\">$numRow</td>";
-                            echo "<td>Room " . $row['room_number'] . "</td>";
-                            echo "<td>" . $row['nurseName'] . "</td>";
-                            echo "<td> " . $row['date'] . "</td>";
-                            echo "<td> " . $row['time_from'] . "</td>";
+                        if ($_GET['position'] == 'dentist') {
+                            while ($row = mysqli_fetch_array($result)) {
+                                echo "<tr>";
+                                echo "<td class=\"text-center\">$numRow</td>";
+                                echo "<td>Room " . $row['room_number'] . "</td>";
+                                echo "<td>" . $firstName . " " . $lastName . "</td>";
+                                echo "<td>" . $row['nurseName'] . "</td>";
+                                echo "<td> " . $row['date'] . "</td>";
+                                echo "<td> " . $row['time_from'] . "</td>";
 
-                            echo '<td class="text-center">';
-                            echo '<a href="edit_schedule.php?id=' . $row['id'] . '">Edit</a>';
-                            echo '&nbsp;&nbsp;';
-                            echo '<a href="schedule_detail.php?id=' . $row['id'] . '">View</a>';
-                            echo '&nbsp;&nbsp;';
-                            echo '<a href="./include/delete_schedule_action.php?id=' . $row['id'] . '" class="text-danger" onClick="return confirm(\'Delete?\');">Delete</a>';
-                            echo '</td>';
+                                echo '<td class="text-center">';
+                                echo '<a href="edit_schedule.php?id=' . $row['id'] . '&staffid=' . $_GET['id'] . '&position=' . $_GET['position'] . '">Edit</a>';
+                                echo '&nbsp;&nbsp;';
+                                echo '<a href="schedule_detail.php?id=' . $row['id'] . '">View</a>';
+                                echo '&nbsp;&nbsp;';
+                                echo '<a href="./include/delete_schedule_action.php?id=' . $row['id'] . '" class="text-danger" onClick="return confirm(\'Delete?\');">Delete</a>';
+                                echo '</td>';
 
-                            echo "</tr>";
-                            $numRow = $numRow + 1;
+                                echo "</tr>";
+                                $numRow = $numRow + 1;
+                            }
+                        } else {
+                            while ($row = mysqli_fetch_array($result)) {
+                                echo "<tr>";
+                                echo "<td class=\"text-center\">$numRow</td>";
+                                echo "<td>Room " . $row['room_number'] . "</td>";
+                                echo "<td>" . $row['dentistName'] . "</td>";
+                                echo "<td>" . $firstName . " " . $lastName . "</td>";
+                                echo "<td> " . $row['date'] . "</td>";
+                                echo "<td> " . $row['time_from'] . "</td>";
+
+                                echo '<td class="text-center">';
+                                echo '<a href="edit_schedule.php?id=' . $row['id'] . '&staffid=' . $_GET['id'] . '&position=' . $_GET['position'] . '">Edit</a>';
+                                echo '&nbsp;&nbsp;';
+                                echo '<a href="schedule_detail.php?id=' . $row['id'] . '">View</a>';
+                                echo '&nbsp;&nbsp;';
+                                echo '<a href="./include/delete_schedule_action.php?id=' . $row['id'] . '" class="text-danger" onClick="return confirm(\'Delete?\');">Delete</a>';
+                                echo '</td>';
+
+                                echo "</tr>";
+                                $numRow = $numRow + 1;
+                            }
                         }
                     } else {
                         echo '<tr><td colspan="6">0 results</td></tr>';

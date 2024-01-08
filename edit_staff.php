@@ -152,13 +152,17 @@ include("include/config.php");
             </div>
     </div>
 
-    <div class="col-12 text-center mb-5">
+    <div class="col-12 text-center mb-3">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
     </form>
 
     <div class="col-12 text-center">
         <a href="./admin.php" class="btn btn-danger mb-3">Back</a>
+        <?php
+        // echo '<a href="staff_detail.php?id=' . $_GET['id'] . '&position=' . $_GET['position'] . '" class="btn btn-danger mb-3">Back</a>';
+
+        ?>
     </div>
     </div>
 </body>

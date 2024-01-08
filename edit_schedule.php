@@ -45,6 +45,8 @@ include("include/config.php");
 
         $sqlNurse = "SELECT * FROM nurse";
         $resultNurse = mysqli_query($conn, $sqlNurse);
+        $sqlDentist="SELECT * FROM dentist";
+        $resultDentist = mysqli_query($conn, $sqlDentist);
     } else {
         header("location:./admin_staff.php");
     }
@@ -89,6 +91,21 @@ include("include/config.php");
                     </select>
                 </div>
 
+
+                <div class="col-12">
+                    <label for="dentistID" class="mb-2">Dentist</label>
+                    <select name="dentistID" id="dentistID" class="form-select">
+                        <?php
+                        if (mysqli_num_rows($resultDentist) > 0) {
+                            while ($rowDentist = mysqli_fetch_array($resultDentist)) {
+                                $selected = ($rowDentist['id'] == $row['dentistID']) ? 'selected' : '';
+                                echo "<option value=" . $rowDentist['id'] . " $selected >" . $rowDentist['id'] . " - " . $rowDentist['firstName'] . " " . $rowDentist['lastName'] . "</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+
                 <div class="col-12">
                     <label for="date" class="mb-2">Date</label>
                     <input type="date" name="date" id="date" class="form-control" value="<?php echo $row['date'] ?>" required>
@@ -112,7 +129,10 @@ include("include/config.php");
         </form>
 
         <div class="col-12 text-center">
-            <a href="./admin.php" class="btn btn-danger">Back</a>
+            <!-- <a href="./admin.php" class="btn btn-danger">Back</a> -->
+            <?php
+                echo '<a href="staff_detail.php?id=' . $_GET['staffid'] . '&position=' . $_GET['position'] . '" class="btn btn-danger">Back</a>';
+                ?>
         </div>
     </div>
 </body>
