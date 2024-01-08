@@ -87,13 +87,14 @@ CREATE TABLE medicalRecord (
 );
 
 CREATE TABLE appointment (
-    appointment_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-    dentist_id INT,
-    patient_id,
-    appointment_date DATE,
-    appointment_time TIME,
-    appointment_reason VARCHAR(255),
-    appointment_status VARCHAR(20),
-    FOREIGN KEY (dentist_id) REFERENCES dentist(id),
-    FOREIGN KEY (patient_id) REFERENCES patient(id)
+appointment_id INT PRIMARY KEY AUTO_INCREMENT , 
+appointment_patient_name TEXT,
+user_ic VARCHAR(20) , 
+dentist_id INT, 
+appointment_date DATE, 
+appointment_time TIME, 
+appointment_reason VARCHAR(255), 
+appointment_status VARCHAR(20),
+FOREIGN KEY (user_ic) REFERENCES user(ic),
+FOREIGN KEY (dentist_id) REFERENCES dentist(id)
 );
