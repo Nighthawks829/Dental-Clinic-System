@@ -24,7 +24,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="user_login.php">User</a>
-                            <a class="dropdown-item" href="admin_staff.php">Admin/Staff</a>
+                            <a class="dropdown-item" href="admin_staff.php">Staff</a>
                         </div>
                     </li>
                 </ul>
