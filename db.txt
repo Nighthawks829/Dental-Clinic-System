@@ -45,8 +45,6 @@ CREATE TABLE review (
     rating INT,
     comments TEXT,
     date DATE,
-    patient_id INT, 
-    FOREIGN KEY (patient_id) REFERENCES patient(id) 
 );
 
 CREATE TABLE user (
