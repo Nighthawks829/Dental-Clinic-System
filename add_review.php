@@ -75,7 +75,7 @@
     </form>
 
     <div class="col-12 text-center">
-        <a href="/index.html" class="btn btn-danger">Back</a>
+        <a href="/index.php" class="btn btn-danger">Back</a>
     </div>
 </div>
 
